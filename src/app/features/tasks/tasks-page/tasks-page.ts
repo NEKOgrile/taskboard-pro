@@ -29,17 +29,17 @@ export class TasksPage {
   container!: ViewContainerRef;
 
   addTask(title: string): void {
+    if (!title.trim()) return;
     this.taskService.addTask(title);
   }
 
+  deleteTask(id: number): void {
+    this.taskService.deleteTask(id);
+  }
+
   highlight(task: Task): void {
-    // Efface le contenu précédent
     this.container.clear();
-
-    // Crée le composant dynamique
     const ref = this.container.createComponent(TaskHighlight);
-
-    // Passe les données au composant
     ref.instance.title = task.title;
   }
 }

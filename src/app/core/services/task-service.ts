@@ -20,7 +20,6 @@ export class TaskService {
 
   private tasksSubject = new BehaviorSubject<Task[]>(this.tasks);
 
-  // 👇 RXJS OPERATORS ICI (séquence 5)
   tasks$ = this.tasksSubject.asObservable().pipe(
     tap(tasks => console.log('Nouvelle liste :', tasks)),
     delay(1000),
@@ -35,6 +34,11 @@ export class TaskService {
     };
 
     this.tasks.push(newTask);
+    this.tasksSubject.next(this.tasks);
+  }
+
+  deleteTask(id: number): void {
+    this.tasks = this.tasks.filter(task => task.id !== id);
     this.tasksSubject.next(this.tasks);
   }
 }

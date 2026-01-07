@@ -1,12 +1,30 @@
 <h2>Liste des tâches</h2>
 
+<input
+  #taskInput
+  type="text"
+  placeholder="Nouvelle tâche"
+  (keyup.enter)="addTask(taskInput.value); taskInput.value = ''"
+/>
+
+<button (click)="addTask(taskInput.value); taskInput.value = ''">
+  Ajouter
+</button>
+
+<hr />
+
 @if (tasks$ | async; as tasks) {
   <ul>
-    @for (t of tasks; track t.id) {
+    @for (task of tasks; track task.id) {
       <li>
-        {{ t.title }}
-        <button type="button" (click)="highlight(t)">
+        {{ task.title }}
+
+        <button (click)="highlight(task)">
           Mettre en avant
+        </button>
+
+        <button (click)="deleteTask(task.id)">
+          Supprimer
         </button>
       </li>
     }
@@ -15,12 +33,4 @@
   <p>Chargement des tâches...</p>
 }
 
-<hr />
-
-<h3>Actions</h3>
-<button (click)="addTask('Nouvelle tâche')">
-  Ajouter une tâche
-</button>
-
-<!-- Zone d'injection du composant dynamique -->
 <div #highlightContainer></div>
