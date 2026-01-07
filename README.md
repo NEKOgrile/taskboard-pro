@@ -102,9 +102,8 @@ Pour les tests de bout en bout :
 ng e2e
 ```
 
-Note : Angular CLI n'inclut pas de framework de test E2E par défaut. Vous pouvez en choisir un qui convient à vos besoins.
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Ressources Supplémentaires
+## Additional Resources
 
-Pour plus d'informations sur l'utilisation d'Angular CLI, y compris des références détaillées des commandes, visitez la page [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).
-
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
