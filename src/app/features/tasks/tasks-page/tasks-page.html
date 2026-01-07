@@ -1,5 +1,9 @@
 <h2>Liste des tâches</h2>
 
+<!-- afficher les stat -->
+<app-task-stats></app-task-stats>
+
+<!-- formulaire pour ajouer une tache -->
 <input
   #taskInput
   type="text"
@@ -16,13 +20,25 @@
 @if (tasks$ | async; as tasks) {
   <ul>
     @for (task of tasks; track task.id) {
-      <li>
+      <li [class.completed]="task.completed">
         {{ task.title }}
 
+        <!-- bouton pour mettre en avant -->
         <button (click)="highlight(task)">
           Mettre en avant
         </button>
 
+        <!-- bouton pour editer -->
+        <button (click)="edit(task)">
+          Éditer
+        </button>
+
+        <!-- bouton pour terminer -->
+        <button (click)="toggleTask(task.id)">
+          Terminer
+        </button>
+
+        <!-- bouton pour suprimer -->
         <button (click)="deleteTask(task.id)">
           Supprimer
         </button>
@@ -33,4 +49,5 @@
   <p>Chargement des tâches...</p>
 }
 
+<!-- conteneur pour les composant dynamique -->
 <div #highlightContainer></div>

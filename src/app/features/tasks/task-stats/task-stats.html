@@ -1,0 +1,8 @@
+@if (stats$ | async; as stats) {
+  <div class="stats">
+    <p>Total: {{ stats.total }}</p>
+    <p>Terminées: {{ stats.completed }}</p>
+    <p>En cours: {{ stats.active }}</p>
+    <p>Pourcentage terminé: {{ stats.percentage }}%</p>
+  </div>
+}
