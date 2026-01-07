@@ -8,6 +8,11 @@ import { AsyncPipe } from '@angular/common';
 import { TaskService } from '../../../core/services/task-service';
 import { TaskHighlight } from '../task-highlight/task-highlight';
 
+interface Task {
+  id: number;
+  title: string;
+}
+
 @Component({
   selector: 'app-tasks-page',
   standalone: true,
@@ -20,15 +25,21 @@ export class TasksPage {
   private taskService = inject(TaskService);
   tasks$ = this.taskService.tasks$;
 
-  @ViewChild('dynamicContainer', { read: ViewContainerRef })
+  @ViewChild('highlightContainer', { read: ViewContainerRef })
   container!: ViewContainerRef;
 
-  showHighlight(title: string) {
+  addTask(title: string): void {
+    this.taskService.addTask(title);
+  }
+
+  highlight(task: Task): void {
+    // Efface le contenu précédent
     this.container.clear();
 
-    const componentRef =
-      this.container.createComponent(TaskHighlight);
+    // Crée le composant dynamique
+    const ref = this.container.createComponent(TaskHighlight);
 
-    componentRef.instance.title = title;
+    // Passe les données au composant
+    ref.instance.title = task.title;
   }
 }
