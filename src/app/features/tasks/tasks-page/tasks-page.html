@@ -1,0 +1,17 @@
+<h2>Mes tâches</h2>
+
+@if (tasks$ | async; as tasks) {
+  <ul>
+    @for (task of tasks; track task.id) {
+      <li>
+        {{ task.title }}
+        <button (click)="showHighlight(task.title)">
+          Mettre en avant
+        </button>
+      </li>
+    }
+  </ul>
+}
+
+<!-- Zone d'affichage dynamique -->
+<ng-container #dynamicContainer></ng-container>
