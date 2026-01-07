@@ -18,3 +18,45 @@
 }
 
 <p>Temps écoulé : {{ count() / 2 }} secondes</p>
+<section class="qa-box">
+  <h2>Questions / Réponses – Réactivité Angular</h2>
+
+  <div class="qa-item">
+    <h3>1. Quels concepts as-tu compris ?</h3>
+<p>
+  J’ai compris que dans Angular on travaille surtout avec des données
+  asynchrones. Le principe c’est qu’on s’abonne à un flux de données
+  et quand les données changent, l’application se met à jour toute seule
+  sans qu’on ait besoin de recharger la page.
+</p>
+  </div>
+
+  <div class="qa-item">
+    <h3>2. À quoi sert BehaviorSubject ?</h3>
+<p>
+  BehaviorSubject sert à garder l’état des données dans le service.
+  Il garde toujours la dernière valeur et l’envoie automatiquement
+  aux composants qui l’utilisent.
+  C’est pratique parce que tout reste synchronisé.
+</p>
+  </div>
+
+  <div class="qa-item">
+    <h3>3. À quoi sert le pipe async ?</h3>
+<p>
+  Le pipe async permet d’afficher des données asynchrones directement
+  dans le HTML. On n’a pas besoin de s’abonner ou de se désabonner à la main,
+  Angular le fait automatiquement pour nous.
+</p>
+  </div>
+
+  <div class="qa-item">
+    <h3>4. Comment fonctionne le flux service → composant → template ?</h3>
+<p>
+  Le service contient les données et la logique.
+  Le composant récupère les données depuis le service.
+  Le template affiche les données et se met à jour automatiquement
+  quand le service change.
+</p>
+  </div>
+</section>
