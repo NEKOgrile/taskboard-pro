@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { map, tap, delay } from 'rxjs/operators';
 
-// 1️⃣ Définir l’interface
-export interface TaskItem {
+export interface Task {
   id: number;
   title: string;
   completed: boolean;
@@ -13,19 +13,22 @@ export interface TaskItem {
 })
 export class TaskService {
 
-  // 2️⃣ Tâches initiales typées
-  private tasks: TaskItem[] = [
+  private tasks: Task[] = [
     { id: 1, title: 'Apprendre Angular', completed: false },
     { id: 2, title: 'Créer TaskBoard Pro', completed: false }
   ];
 
-  // 3️⃣ BehaviorSubject typé
-  private tasksSubject = new BehaviorSubject<TaskItem[]>(this.tasks);
-  tasks$ = this.tasksSubject.asObservable();
+  private tasksSubject = new BehaviorSubject<Task[]>(this.tasks);
 
-  // 4️⃣ Méthode pour ajouter une tâche
+  // 👇 RXJS OPERATORS ICI (séquence 5)
+  tasks$ = this.tasksSubject.asObservable().pipe(
+    tap(tasks => console.log('Nouvelle liste :', tasks)),
+    delay(1000),
+    map(tasks => tasks.filter(t => !t.completed))
+  );
+
   addTask(title: string): void {
-    const newTask: TaskItem = {
+    const newTask: Task = {
       id: Date.now(),
       title,
       completed: false
