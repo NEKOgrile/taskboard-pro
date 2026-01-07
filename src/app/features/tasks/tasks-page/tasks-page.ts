@@ -13,7 +13,7 @@ import { TaskEdit } from '../task-edit/task-edit';
 @Component({
   selector: 'app-tasks-page',
   standalone: true,
-  imports: [AsyncPipe, TaskStats, TaskEdit],
+  imports: [AsyncPipe, TaskStats],
   templateUrl: './tasks-page.html',
   styleUrls: ['./tasks-page.scss']
 })
