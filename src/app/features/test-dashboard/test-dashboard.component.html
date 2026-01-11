@@ -1,0 +1,84 @@
+<div class="test-dashboard">
+  <!-- header -->
+  <div class="header">
+    <h1>📊 Dashboard des Testes</h1>
+    <p>Visualisez tous les tests unitaires du proget</p>
+  </div>
+
+  <!-- les stats -->
+  <div class="stats-container">
+    <div class="stat-card total">
+      <div class="stat-number">{{ totalTests }}</div>
+      <div class="stat-label">Tests total</div>
+    </div>
+    <div class="stat-card passed">
+      <div class="stat-number">{{ totalPassed }}</div>
+      <div class="stat-label">Tests réusits ✓</div>
+    </div>
+    <div class="stat-card failed">
+      <div class="stat-number">{{ totalFailed }}</div>
+      <div class="stat-label">Tests échoue ✗</div>
+    </div>
+    <div class="stat-card percentage">
+      <div class="stat-number">{{ ((totalPassed / totalTests) * 100).toFixed(0) }}%</div>
+      <div class="stat-label">Taux de réusiste</div>
+    </div>
+  </div>
+
+  <!-- bar de progress -->
+  <div class="progress-bar">
+    <div class="progress-fill" [style.width]="((totalPassed / totalTests) * 100) + '%'"></div>
+  </div>
+
+  <!-- les fichiers des tests -->
+  <div class="files-container">
+    <div *ngFor="let file of testFiles" class="test-file-group">
+      <div class="file-header">
+        <div class="file-info">
+          <h2>📄 {{ file.name }}</h2>
+          <p class="file-path">{{ file.path }}</p>
+        </div>
+        <div class="file-summary">
+          <span class="passed-count">✓ {{ file.passed }}/{{ file.total }}</span>
+        </div>
+      </div>
+
+      <!-- les tests -->
+      <div class="tests-list">
+        <div *ngFor="let test of file.tests" class="test-item" [ngClass]="getStatusClass(test.status)">
+          <div class="test-header" (click)="toggleTestDetails(test.id)">
+            <div class="test-icon">
+              <span *ngIf="test.status === 'passed'" class="icon-passed">✓</span>
+              <span *ngIf="test.status === 'failed'" class="icon-failed">✗</span>
+              <span *ngIf="test.status === 'pending'" class="icon-pending">⏳</span>
+            </div>
+            <div class="test-content">
+              <h3>{{ test.name }}</h3>
+              <span class="test-duration">⏱️ {{ test.duration }}ms</span>
+            </div>
+            <div class="expand-icon">
+              <span *ngIf="expandedTest !== test.id">▶</span>
+              <span *ngIf="expandedTest === test.id">▼</span>
+            </div>
+          </div>
+
+          <!-- detail du test si cliqué -->
+          <div class="test-details" *ngIf="expandedTest === test.id">
+            <p class="description">
+              <strong>Description:</strong><br>
+              {{ test.description }}
+            </p>
+            <p class="test-file">
+              <strong>Fichier:</strong> {{ test.file }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <p>Tous les testes sont éxécutées avec Vitest (sauf les autre lol)</p>
+  </div>
+</div>

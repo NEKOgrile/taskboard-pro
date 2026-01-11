@@ -1,0 +1,361 @@
+.test-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  min-height: 100vh;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  // TODO: refactor les couleurs en variable css
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  // j'aime pas comment ca look mais bon...
+
+  h1 {
+    font-size: 2.5rem;
+    margin: 0 0 10px 0;
+    color: #60a5fa;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    // font-weight: 900; // trop epais
+  }
+
+  p {
+    font-size: 1rem;
+    color: #cbd5e1;
+    margin: 0;
+  }
+}
+
+// container pour les stats
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+  // C'etait 15px avant mais 20 c'est mieux
+}
+
+.stat-card {
+  background: rgba(30, 41, 59, 0.8);
+  border: 2px solid rgba(96, 165, 250, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  // peut etre faire un animation de bounce?
+
+  &:hover {
+    border-color: rgba(96, 165, 250, 0.6);
+    transform: translateY(-5px);
+    background: rgba(30, 41, 59, 0.95);
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    // color devrait etre dynamic
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  &.total .stat-number {
+    color: #60a5fa;
+  }
+
+  &.passed .stat-number {
+    color: #34d399;
+  }
+
+  &.failed .stat-number {
+    color: #f87171;
+  }
+
+  &.percentage .stat-number {
+    color: #fbbf24;
+  }
+}
+
+// progress bar
+.progress-bar {
+  height: 8px;
+  background: rgba(51, 65, 85, 0.5);
+  border-radius: 4px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  // box-shadow: 0 0 10px rgba(96, 165, 250, 0.2); // c'etait trop
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #34d399, #10b981);
+    transition: width 0.6s ease;
+    border-radius: 4px;
+  }
+}
+
+// fichiers de tests
+.files-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  // TODO: essayer un layout en cartes
+}
+
+.test-file-group {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.file-header {
+  background: linear-gradient(90deg, rgba(30, 41, 59, 0.8), rgba(51, 65, 85, 0.4));
+  padding: 20px;
+  border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .file-info {
+    h2 {
+      font-size: 1.3rem;
+      margin: 0 0 8px 0;
+      color: #60a5fa;
+    }
+
+    .file-path {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin: 0;
+      font-family: 'Courier New', monospace;
+    }
+  }
+
+  .file-summary {
+    .passed-count {
+      background: rgba(52, 211, 153, 0.2);
+      color: #34d399;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+  }
+}
+
+.tests-list {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.test-item {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &.status-passed {
+    border-color: rgba(52, 211, 153, 0.3);
+
+    &:hover {
+      border-color: rgba(52, 211, 153, 0.6);
+      background: rgba(30, 41, 59, 0.8);
+      box-shadow: 0 0 12px rgba(52, 211, 153, 0.15);
+    }
+  }
+
+  &.status-failed {
+    border-color: rgba(248, 113, 113, 0.3);
+
+    &:hover {
+      border-color: rgba(248, 113, 113, 0.6);
+      background: rgba(30, 41, 59, 0.8);
+      // box-shadow: 0 0 12px rgba(248, 113, 113, 0.15);
+    }
+  }
+
+  &.status-pending {
+    border-color: rgba(251, 191, 36, 0.3);
+
+    &:hover {
+      border-color: rgba(251, 191, 36, 0.6);
+      background: rgba(30, 41, 59, 0.8);
+    }
+  }
+}
+
+.test-header {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  user-select: none;
+  // a ameliorer...
+
+  .test-icon {
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    .icon-passed {
+      color: #34d399;
+      background: rgba(52, 211, 153, 0.15);
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-failed {
+      color: #f87171;
+      background: rgba(248, 113, 113, 0.15);
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-pending {
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.15);
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .test-content {
+    flex-grow: 1;
+
+    h3 {
+      font-size: 1rem;
+      margin: 0 0 5px 0;
+      color: #e2e8f0;
+    }
+
+    .test-duration {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+  }
+
+  .expand-icon {
+    flex-shrink: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+
+  &:hover .expand-icon {
+    color: #cbd5e1;
+  }
+}
+
+.test-details {
+  background: rgba(15, 23, 42, 0.8);
+  padding: 15px;
+  border-top: 1px solid rgba(71, 85, 105, 0.2);
+  animation: slideDown 0.3s ease;
+  // border gauche rouge?
+
+  .description,
+  .test-file {
+    margin: 0 0 10px 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+
+    strong {
+      color: #60a5fa;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .test-file {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #94a3b8;
+
+    strong {
+      color: #fbbf24;
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(71, 85, 105, 0.3);
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .test-dashboard {
+    padding: 15px;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .file-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .test-header {
+    flex-wrap: wrap;
+  }
+}
