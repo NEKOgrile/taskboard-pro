@@ -49,5 +49,16 @@
   <p>Chargement des tâches...</p>
 }
 
-<!-- conteneur pour les composant dynamique -->
-<div #highlightContainer></div>
+<!-- Affichage du composant de mise en avant basé sur l'état -->
+@if (highlightedTask) {
+  <app-task-highlight [title]="highlightedTask.title"></app-task-highlight>
+}
+
+<!-- Affichage du composant d'édition basé sur l'état -->
+@if (editingTask) {
+  <app-task-edit
+    [task]="editingTask"
+    (onSave)="updateTask(editingTask!.id, $event)"
+    (onCancel)="cancelEdit()">
+  </app-task-edit>
+}

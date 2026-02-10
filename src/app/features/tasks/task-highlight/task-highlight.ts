@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-task-highlight',
+    changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   template: `
     <div class="task-highlight">

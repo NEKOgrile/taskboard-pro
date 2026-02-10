@@ -1,7 +1,6 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  ViewChild,
-  ViewContainerRef,
   inject
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
@@ -12,8 +11,9 @@ import { TaskEdit } from '../task-edit/task-edit';
 
 @Component({
   selector: 'app-tasks-page',
+   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [AsyncPipe, TaskStats],
+  imports: [AsyncPipe, TaskStats, TaskHighlight, TaskEdit],
   templateUrl: './tasks-page.html',
   styleUrls: ['./tasks-page.scss']
 })
@@ -22,8 +22,9 @@ export class TasksPage {
   private taskService = inject(TaskService);
   tasks$ = this.taskService.tasks$;
 
-  @ViewChild('highlightContainer', { read: ViewContainerRef })
-  container!: ViewContainerRef;
+  // État des composants affichés
+  highlightedTask: Task | null = null;
+  editingTask: Task | null = null;
 
   // ajouer une tache
   addTask(title: string): void {
@@ -44,26 +45,21 @@ export class TasksPage {
   // mettre a jour le titre
   updateTask(id: number, title: string): void {
     this.taskService.updateTask(id, title);
+    this.editingTask = null;
   }
 
   // mettre en avant une tache
   highlight(task: Task): void {
-    this.container.clear();
-    const ref = this.container.createComponent(TaskHighlight);
-    ref.instance.title = task.title;
+    this.highlightedTask = task;
   }
 
   // editer une tache
   edit(task: Task): void {
-    this.container.clear();
-    const ref = this.container.createComponent(TaskEdit);
-    ref.instance.task = task;
-    ref.instance.onSave.subscribe((newTitle: string) => {
-      this.updateTask(task.id, newTitle);
-      this.container.clear();
-    });
-    ref.instance.onCancel.subscribe(() => {
-      this.container.clear();
-    });
+    this.editingTask = task;
+  }
+
+  // annuler l'édition
+  cancelEdit(): void {
+    this.editingTask = null;
   }
 }
