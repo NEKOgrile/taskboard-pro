@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // TODO: refactoriser les tests plus tard...ou pas
@@ -24,7 +24,8 @@ interface TestFile {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './test-dashboard.component.html',
-  styleUrls: ['./test-dashboard.component.scss']
+  styleUrls: ['./test-dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TestDashboardComponent {
   private debugMode: boolean = false;
@@ -325,5 +326,15 @@ export class TestDashboardComponent {
   // fonction qu'on va utiliser plus tard (ou jamais lol)
   private resetTests(): void {
     this.expandedTest = null;
+  }
+
+  // TrackBy pour les fichiers de tests
+  trackByFileName(_index: number, file: TestFile): string {
+    return file.name;
+  }
+
+  // TrackBy pour les tests individuels
+  trackByTestId(_index: number, test: TestCase): string {
+    return test.id;
   }
 }

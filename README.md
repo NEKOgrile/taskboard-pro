@@ -1,120 +1,48 @@
-# final
+📚 Synthèse de la séquence
+⚡ Ce que j’ai compris sur la performance
 
-📚 Ce que j’ai appris
+Au début, je pensais que la performance c’était surtout des petites optimisations techniques. En réalité, j’ai compris que c’est surtout une question de méthode.
 
-1. Pourquoi tester ?
+La chose la plus importante que j’ai retenue, c’est : mesurer avant d’optimiser.
+Avec DevTools et Lighthouse, on peut voir concrètement ce qui ne va pas.
+Optimiser sans mesurer, ça ne sert à rien.
 
-Les tests permettent de vérifier que le code fonctionne correctement et continue de fonctionner après des modifications.
+Quand j’ai lancé Lighthouse, j’étais à 25% en performance, mais je me suis rendu compte que ma RAM tournait à 100% à côté. Donc le score n’était pas totalement représentatif. Ça m’a montré que l’environnement joue aussi un rôle.
 
-Sans tests, on risque de casser une fonctionnalité existante sans s’en rendre compte.
+J’ai aussi appris à utiliser OnPush pour éviter que Angular fasse trop de vérifications inutiles.
+Le trackBy dans les *ngFor est aussi important pour éviter de recréer le DOM à chaque changement.
 
-Exemple concret : après avoir modifié le TaskService, les tests m’ont permis de vérifier que addTask() et deleteTask() fonctionnaient toujours correctement.
+Le lazy loading permet de ne pas tout charger au démarrage, ce qui rend l’application plus rapide au lancement.
 
-2. Outils utilisés
+Et enfin, découper en petits composants aide beaucoup : c’est plus clair, plus simple à maintenir, et plus facile à optimiser.
 
-Jasmine : framework de tests qui permet d’écrire les tests (describe, it, expect).
+🔒 Ce que j’ai retenu sur la sécurité
 
-Karma : lanceur de tests qui exécute les tests dans un navigateur.
+La sécurité doit être pensée dès le début.
 
-TestBed : outil Angular qui permet de créer un environnement de test pour les composants et services.
+Je dois toujours partir du principe qu’une donnée utilisateur peut être malveillante.
 
-3. Concepts clés maîtrisés
+Utiliser {{ }} au lieu de innerHTML est plus sûr, car Angular protège automatiquement contre les injections XSS.
 
-AAA Pattern :
+La validation côté frontend est utile, mais la vraie sécurité doit être côté serveur.
 
-Arrange : préparer les données et le contexte
+J’ai aussi découvert l’importance d’une Content Security Policy pour limiter les scripts autorisés.
 
-Act : exécuter la méthode à tester
+🧪 Ce que j’ai appris sur les tests
 
-Assert : vérifier le résultat attendu
+Avant, je voyais les tests comme quelque chose de secondaire.
+Maintenant, je comprends que c’est essentiel.
 
-Mocks : objets factices utilisés pour simuler des dépendances (ex : services).
+Les tests permettent de vérifier que le code fonctionne, mais surtout qu’il continue de fonctionner après des modifications.
 
-Spies : permettent d’espionner une méthode pour vérifier si elle a été appelée.
+Par exemple, après avoir modifié le TaskService, j’ai pu vérifier que addTask() et deleteTask() fonctionnaient toujours.
 
-Fixture & detectChanges() : nécessaires pour déclencher le cycle de vie Angular et mettre à jour le DOM lors des tests de composants.
+J’ai appris le pattern AAA l’utilisation des mocks et des spies, et l’importance de detectChanges() pour mettre à jour le DOM dans les tests.
 
-4. Types de tests pratiqués
+J’ai aussi fait quelques erreurs, mais ça m’a aidé à mieux comprendre Angular.
 
-✅ Test d’une classe simple (sans Angular)
+💭 Mon ressenti
 
-✅ Test d’un service
+Cette séquence m’a fait comprendre que la performance, la sécurité et les tests ne sont pas des détails.
 
-✅ Test d’un composant avec TestBed
-
-✅ Test des @Input
-
-✅ Test du DOM
-
-5. Erreurs courantes rencontrées
-
-Oublier detectChanges() : le DOM n’est pas mis à jour, le test échoue.
-
-No provider for... : il faut ajouter le service manquant dans providers.
-
-Tests dépendants entre eux : il faut réinitialiser l’état avant chaque test (beforeEach).
-
-6. Commandes importantes
-```
-ng test                    # Lancer les tests
-ng test --code-coverage    # Générer le rapport de couverture
-```
-
-7. Code Coverage atteint
-
-Objectif : 70–80%
-
-Mon résultat : environ 75% sur TaskBoard Pro
-
-8. Difficultés rencontrées et solutions
-
-| Difficulté | Solution trouvée |
-|------------|------------------|
-| Comprendre TestBed | Relire les exemples et pratiquer |
-| Erreurs de providers | Ajouter les services nécessaires |
-| Tests du DOM | Utiliser fixture.nativeElement |
-
-9. Points à approfondir
-
-- Tests d’intégration
-- Tests E2E avec Cypress
-- Mocking avancé de HttpClient
-- Tests de services asynchrones
-
-🎯 Projet : Tests TaskBoard Pro
-
-Tests implémentés
-
-**TaskService**
-
-✅ addTask()
-
-✅ deleteTask()
-
-**TaskHighlight Component**
-
-✅ Affichage du titre
-
-✅ Test du @Input title
-
-✅ Vérification du rendu DOM
-
-Résultats
-
-Tests réussis : OK (tous les tests passent)
-
-Code coverage : ~75%
-
-Temps d’exécution : quelques secondes
-
-💡 Réflexion personnelle
-
-Cette séquence m’a permis de comprendre l’intérêt des tests unitaires dans un projet Angular.
-Même si l’écriture des tests demande du temps, elle évite beaucoup d’erreurs et rend le code plus fiable.
-Je compte utiliser les tests systématiquement dans mes futurs projets, au moins pour les services et les composants principaux.
-
-📚 Ressources consultées
-
-- Angular Testing Guide
-- Documentation Jasmine
-- Supports de cours — Séquence 4
+Même si ça demande plus de travail au début, ça rend le projet plus propre et plus fiable.

@@ -32,7 +32,7 @@
 
   <!-- les fichiers des tests -->
   <div class="files-container">
-    <div *ngFor="let file of testFiles" class="test-file-group">
+    <div *ngFor="let file of testFiles; trackBy: trackByFileName" class="test-file-group">
       <div class="file-header">
         <div class="file-info">
           <h2>📄 {{ file.name }}</h2>
@@ -45,7 +45,7 @@
 
       <!-- les tests -->
       <div class="tests-list">
-        <div *ngFor="let test of file.tests" class="test-item" [ngClass]="getStatusClass(test.status)">
+        <div *ngFor="let test of file.tests; trackBy: trackByTestId" class="test-item" [ngClass]="getStatusClass(test.status)">
           <div class="test-header" (click)="toggleTestDetails(test.id)">
             <div class="test-icon">
               <span *ngIf="test.status === 'passed'" class="icon-passed">✓</span>
